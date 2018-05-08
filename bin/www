@@ -4,7 +4,11 @@
  * Module dependencies.
  */
 
+//依赖加载
+//引入我们上面导出的app实例
 var app = require('../app');
+
+//引入debug模块，打印调试日志
 var debug = require('debug')('test:server');
 var http = require('http');
 
@@ -12,6 +16,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
+//定义启动端口
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -33,6 +38,7 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
+//端口标准化函数
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -53,14 +59,13 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
+//HTTP异常事件处理函数
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -81,10 +86,9 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
+//事件绑定函数
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
