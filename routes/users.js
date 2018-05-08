@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+//密码加密
+// var bcrypt = require('bcryptjs');
+var bcrypt = require('bcryptjs');
 
 // 导入MySQL模块
 var mysql = require('mysql2');
@@ -12,7 +15,7 @@ var responseJSON = function(res, ret) {
   if (typeof ret === 'undefined') {
     res.json({
       code: '-200',
-      msg: '操作失败'
+      msg: '操作失败',
     });
   } else {
     res.json(ret);
@@ -24,23 +27,29 @@ router.get('/addUser', function(req, res, next) {
   pool.getConnection(function(err, connection) {
     // 获取前台页面传过来的参数
     var param = req.query || req.params;
+    /*生成HASH值*/
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(param.password, salt);
+    console.log("hash:" + hash);
+
     // 建立连接 增加一个用户信息
-    connection.query(userSQL.insert, [param.uid, param.name], function(
-      err, result) {
-      if (result) {
-        result = {
-          code: 200,
-          msg: '增加成功'
-        };
-      }
+    connection.query(userSQL.insert, [param.id, param.name, hash],
+      function(
+        err, result) {
+        if (result) {
+          result = {
+            code: 200,
+            msg: '增加成功',
+          };
+        }
 
-      // 以json形式，把操作结果返回给前台页面
-      responseJSON(res, result);
+        // 以json形式，把操作结果返回给前台页面
+        responseJSON(res, result);
 
-      // 释放连接
-      connection.release();
+        // 释放连接
+        connection.release();
 
-    });
+      });
   });
 });
 
