@@ -30,7 +30,6 @@ router.get('/addUser', function(req, res, next) {
     /*生成HASH值*/
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(param.password, salt);
-    console.log("hash:" + hash);
 
     // 建立连接 增加一个用户信息
     connection.query(userSQL.insert, [param.id, param.name, hash],
