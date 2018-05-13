@@ -15,7 +15,8 @@ var responseJSON = function(res, ret) {
   if (typeof ret === 'undefined') {
     res.json({
       code: '-200',
-      msg: '操作失败',
+      msg: '操作失败，请查明原因,点击浏览器返回按钮刷新重试! ',
+      moreMsg: '提示:同一学号无法重复注册',
     });
   } else {
     res.json(ret);
