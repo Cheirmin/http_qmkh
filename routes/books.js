@@ -1,13 +1,10 @@
 var express = require('express');
 var router = express.Router();
-//密码加密
-// var bcrypt = require('bcryptjs');
-var bcrypt = require('bcryptjs');
 
 // 导入MySQL模块
 var mysql = require('mysql2');
 var dbConfig = require('../db/DBConfig');
-var userSQL = require('../db/Usersql');
+var bookSQL = require('../db/Booksql');
 // 使用DBConfig.js的配置信息创建一个MySQL连接池
 var pool = mysql.createPool(dbConfig.mysql);
 // 响应一个JSON数据
@@ -22,18 +19,15 @@ var responseJSON = function(res, ret) {
   }
 };
 // 添加用户
-router.get('/addUser', function(req, res, next) {
+router.get('/addBook', function(req, res, next) {
   // 从连接池获取连接
   pool.getConnection(function(err, connection) {
     // 获取前台页面传过来的参数
     var param = req.query || req.params;
-    /*生成HASH值*/
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(param.password, salt);
 
     // 建立连接 增加一个用户信息
-    connection.query(userSQL.insert, [param.id, param.name, hash, param
-        .email
+    connection.query(bookSQL.insert, [param.id, param.name, param.summary,
+        param.kind_id
       ],
       function(
         err, result) {

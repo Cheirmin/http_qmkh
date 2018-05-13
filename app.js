@@ -6,6 +6,10 @@ var logger = require('morgan'); //在控制台中，显示req请求的信息
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var booksRouter = require('./routes/books');
+var loginRouter = require('./routes/login');
+var registerRouter = require('./routes/register');
+var homeRouter = require('./routes/home');
 
 var app = express();
 
@@ -24,6 +28,10 @@ app.use(express.static(path.join(__dirname, 'public'))); //静态文件目录设
 //路由控制器
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/books', booksRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
+app.use('/home', homeRouter);
 
 // 捕获404错误，并转发到错误处理器
 // catch 404 and forward to error handler
