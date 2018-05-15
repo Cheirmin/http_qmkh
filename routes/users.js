@@ -4,6 +4,12 @@ var router = express.Router();
 // var bcrypt = require('bcryptjs');
 var bcrypt = require('bcryptjs');
 
+//validator  载入中间键验证
+var expressValidator = require('express-validator');
+var check = require('express-validator/check').check;
+var validationResult = require('express-validator/check').validationResult;
+
+
 // 导入MySQL模块
 var mysql = require('mysql2');
 var dbConfig = require('../db/DBConfig');
@@ -22,37 +28,77 @@ var responseJSON = function(res, ret) {
     res.json(ret);
   }
 };
-// 添加用户
-router.get('/addUser', function(req, res, next) {
-  // 从连接池获取连接
-  pool.getConnection(function(err, connection) {
-    // 获取前台页面传过来的参数
-    var param = req.query || req.params;
-    /*生成HASH值*/
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(param.password, salt);
 
-    // 建立连接 增加一个用户信息
-    connection.query(userSQL.insert, [param.id, param.name, hash, param
-        .email
-      ],
-      function(
-        err, result) {
-        if (result) {
-          result = {
-            code: 200,
-            msg: '增加成功',
-          };
-        }
+// 添加用户，与用户信息提示
+router.get('/addUser', [check('id')
+  .isInt()
+  .isLength({
+    min: 11,
+    max: 11
+  })
+  .withMessage('学号长度为11位有效数字！'),
+  check('name')
+  .isLength({
+    min: 2,
+    max: 6
+  })
+  .withMessage(' 名字长度为2-6位！'),
+  check('password')
+  .isLength({
+    min: 6,
+    max: 16
+  })
+  .withMessage(' 密码长度为6-16位！'),
+  check('email')
+  .isEmail()
+  .withMessage('请输入正确的邮箱格式！'),
+], function(req, res, next) {
 
-        // 以json形式，把操作结果返回给前台页面
-        responseJSON(res, result);
+  //验证错误信息提示
+  var errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json({
+      errors: errors.mapped()
+    });
+  } else {
+    // 从连接池获取连接
+    pool.getConnection(function(err, connection) {
 
-        // 释放连接
-        connection.release();
+      // 获取前台页面传过来的参数
+      var param = req.query || req.params;
 
-      });
-  });
+      /*生成HASH值*/
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(param.password, salt);
+
+      // 建立连接 增加一个用户信息
+      connection.query(userSQL.insert, [param.id, param.name, hash,
+          param
+          .email
+        ],
+        function(
+          err, result) {
+          if (result) {
+            result = {
+              code: 200,
+              msg: '增加成功',
+            };
+          }
+
+          // 以json形式，把操作结果返回给前台页面
+          responseJSON(res, result);
+
+          // 释放连接
+          connection.release();
+
+        });
+    });
+
+    // res.json({
+    //   msg: 'success'
+    // });
+  }
+
 });
 
 
