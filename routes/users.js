@@ -40,15 +40,15 @@ router.get('/addUser', [check('id')
   check('name')
   .isLength({
     min: 2,
-    max: 6
+    max: 16
   })
-  .withMessage(' 名字长度为2-6位！'),
+  .withMessage('名字长度为2-16位！'),
   check('password')
   .isLength({
     min: 6,
     max: 16
   })
-  .withMessage(' 密码长度为6-16位！'),
+  .withMessage('密码长度为6-16位！'),
   check('email')
   .isEmail()
   .withMessage('请输入正确的邮箱格式！'),
@@ -58,8 +58,14 @@ router.get('/addUser', [check('id')
   var errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.json({
-      errors: errors.mapped()
+      message: '注册信息错误提示:',
+      error: errors.mapped()
     });
+    //  var errors = errors.mapped();
+    // return res.render('error', {
+    //   message: '注册信息错误提示:',
+    //   error: errors
+    // });
   } else {
     // 从连接池获取连接
     pool.getConnection(function(err, connection) {
@@ -99,6 +105,34 @@ router.get('/addUser', [check('id')
     // });
   }
 
+});
+
+
+router.get('/home', function(req, res, next) {
+  // 从连接池获取连接
+  pool.getConnection(function(err, connection) {
+    // 获取前台页面传过来的参数
+    var param = req.query || req.params;
+    // 建立连接 根据手机号查找密码
+    if (connection.query(userSQL.getPwdById, [param.id])) {
+
+    } else {
+
+    }
+    connection.query(userSQL.getPwdById, [param.id],
+      function(err, result) {
+        if (bcrypt.compareSync(param.password, result[0].password)) {
+          // res.send("1");
+          res.redirect('../home');
+          // connection.query(userSQL.updateLoginStatusById, [1, result[
+          //   0].id], function(err, result) {});
+        } else {
+          res.redirect('../login');
+        }
+        // 释放连接
+        connection.release();
+      });
+  });
 });
 
 
