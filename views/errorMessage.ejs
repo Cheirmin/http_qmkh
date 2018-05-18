@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <h1 > <%= message %></h1>
+    <table>
+        <% for(var i in error){ %>
+                 <pre><%= error[i].msg %> </pre >
+        <% } %>
+    </table>
+  <a href="javascript:history.go(-1);">返回上一页</a>
+</html>

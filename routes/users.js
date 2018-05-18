@@ -53,19 +53,14 @@ router.get('/addUser', [check('id')
   .isEmail()
   .withMessage('请输入正确的邮箱格式！'),
 ], function(req, res, next) {
-
   //验证错误信息提示
   var errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json({
+    var errors = errors.mapped();
+    return res.render('errorMessage.ejs', {
       message: '注册信息错误提示:',
-      error: errors.mapped()
+      error: errors
     });
-    //  var errors = errors.mapped();
-    // return res.render('error', {
-    //   message: '注册信息错误提示:',
-    //   error: errors
-    // });
   } else {
     // 从连接池获取连接
     pool.getConnection(function(err, connection) {
