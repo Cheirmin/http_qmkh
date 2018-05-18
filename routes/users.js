@@ -1,25 +1,11 @@
 var express = require('express');
 var router = express.Router();
+
 //引入密码加密模块
 // var bcrypt = require('bcryptjs');
 var bcrypt = require('bcryptjs');
 
-//引入session，套用老师的
-var session = require('express-session');
-var app = express();
-app.use(session({
-  secret: 'password',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAage: 600000
-  }
-}))
-
-var formidable = require('express-formidable');
-app.use(formidable());
-
-//validator  载入中间键验证
+//validator中间键验证  ---验证注册信息用
 var expressValidator = require('express-validator');
 var check = require('express-validator/check').check;
 var validationResult = require('express-validator/check').validationResult;
@@ -30,13 +16,13 @@ var dbConfig = require('../db/DBConfig');
 var userSQL = require('../db/Usersql');
 // 使用DBConfig.js的配置信息创建一个MySQL连接池
 var pool = mysql.createPool(dbConfig.mysql);
-// 响应一个JSON数据
+// 响应一个JSON数据``
 var responseJSON = function(res, ret) {
   if (typeof ret === 'undefined') {
-    res.json({
-      code: '-200',
-      msg: '操作失败，请查明原因,点击浏览器返回按钮刷新重试! ',
-      moreMsg: '提示:同一学号无法重复注册',
+    res.render('message.ejs', {
+      title: '操作失败！',
+      message: '原因:',
+      detail: '同一学号无法重复注册'
     });
   } else {
     res.json(ret);
@@ -73,7 +59,7 @@ router.get('/addUser', [check('id')
     //获取错误的具体信息
     var errors = errors.mapped();
     //将错误信息返回给前端页面
-    return res.render('errorMessage.ejs', {
+    res.render('errorMessages.ejs', {
       title: '注册失败！',
       message: '原因:',
       error: errors
@@ -93,10 +79,11 @@ router.get('/addUser', [check('id')
         function(
           err, result) {
           if (result) {
-            result = {
-              code: 200,
-              msg: '增加成功',
-            };
+            return res.render('message.ejs', {
+              title: '注册成功！',
+              message: null,
+              detail: null
+            });
           }
           // 以json形式，把操作结果返回给前台页面
           responseJSON(res, result);
@@ -118,29 +105,23 @@ router.get('/home', function(req, res, next) {
       function(err, result, fields) {
         if (result.length == 1) {
           if (bcrypt.compareSync(param.password, result[0].password)) {
-            // req.session.user = {
-            //   user_id: req.query.id,
-            //   role: 'admin'
-            // };
-            res.redirect('../home');
+            req.session.user = {
+              user_id: param.id,
+              role: 'admin'
+            };
+            return res.redirect('../home');
           } else {
-            // req.session.user = false;
-            res.redirect('../login');
+            req.session.user = false;
+            return res.redirect('../login');
           }
         } else {
-          // req.session.user = false;
-          res.redirect('../login');
+          req.session.user = false;
+          return res.redirect('../login');
         }
         // 释放连接
         connection.release();
       });
   });
-});
-
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
 });
 
 module.exports = router;

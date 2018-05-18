@@ -16,13 +16,13 @@ app.use(session({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // if (req.session.user) {
-  res.render('home', {
-    title: 'Home'
-  });
-  // } else {
-  //   res.redirect('../login');
-  // }
+  if (req.session.user) {
+    res.render('home', {
+      title: 'Home'
+    });
+  } else {
+    res.redirect('../login');
+  }
 });
 
 module.exports = router;
