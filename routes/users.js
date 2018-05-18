@@ -1,8 +1,23 @@
 var express = require('express');
 var router = express.Router();
-//密码加密
+//引入密码加密模块
 // var bcrypt = require('bcryptjs');
 var bcrypt = require('bcryptjs');
+
+//引入session，套用老师的
+var session = require('express-session');
+var app = express();
+app.use(session({
+  secret: 'password',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAage: 600000
+  }
+}))
+
+var formidable = require('express-formidable');
+app.use(formidable());
 
 //validator  载入中间键验证
 var expressValidator = require('express-validator');
@@ -28,7 +43,7 @@ var responseJSON = function(res, ret) {
   }
 };
 
-// 添加用户，与用户信息提示
+// 添加用户，与用户信息提示,使用了validator中间件验证方法
 router.get('/addUser', [check('id')
   .isInt()
   .isLength({
@@ -55,7 +70,9 @@ router.get('/addUser', [check('id')
   //验证错误信息提示
   var errors = validationResult(req);
   if (!errors.isEmpty()) {
+    //获取错误的具体信息
     var errors = errors.mapped();
+    //将错误信息返回给前端页面
     return res.render('errorMessage.ejs', {
       title: '注册失败！',
       message: '原因:',
@@ -64,18 +81,14 @@ router.get('/addUser', [check('id')
   } else {
     // 从连接池获取连接
     pool.getConnection(function(err, connection) {
-
       // 获取前台页面传过来的参数
       var param = req.query || req.params;
-
-      /*生成HASH值*/
+      //生成HASH值
       var salt = bcrypt.genSaltSync(10);
       var hash = bcrypt.hashSync(param.password, salt);
-
       // 建立连接 增加一个用户信息
       connection.query(userSQL.insert, [param.id, param.name, hash,
-          param
-          .email
+          param.email
         ],
         function(
           err, result) {
@@ -85,43 +98,37 @@ router.get('/addUser', [check('id')
               msg: '增加成功',
             };
           }
-
           // 以json形式，把操作结果返回给前台页面
           responseJSON(res, result);
-
           // 释放连接
           connection.release();
-
         });
     });
-
-    // res.json({
-    //   msg: 'success'
-    // });
   }
-
 });
 
-
+//判断用户的登陆信息，如果成功则转到主页面
 router.get('/home', function(req, res, next) {
   // 从连接池获取连接
   pool.getConnection(function(err, connection) {
     // 获取前台页面传过来的参数
     var param = req.query || req.params;
-    // 建立连接 根据手机号查找密码
-    if (connection.query(userSQL.getPwdById, [param.id])) {
-
-    } else {
-
-    }
-    connection.query(userSQL.getPwdById, [param.id],
-      function(err, result) {
-        if (bcrypt.compareSync(param.password, result[0].password)) {
-          // res.send("1");
-          res.redirect('../home');
-          // connection.query(userSQL.updateLoginStatusById, [1, result[
-          //   0].id], function(err, result) {});
+    // 建立连接，使用学号登陆
+    connection.query(userSQL.getUserById, [param.id],
+      function(err, result, fields) {
+        if (result.length == 1) {
+          if (bcrypt.compareSync(param.password, result[0].password)) {
+            // req.session.user = {
+            //   user_id: req.query.id,
+            //   role: 'admin'
+            // };
+            res.redirect('../home');
+          } else {
+            // req.session.user = false;
+            res.redirect('../login');
+          }
         } else {
+          // req.session.user = false;
           res.redirect('../login');
         }
         // 释放连接
