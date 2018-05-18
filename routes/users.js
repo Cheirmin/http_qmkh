@@ -9,7 +9,6 @@ var expressValidator = require('express-validator');
 var check = require('express-validator/check').check;
 var validationResult = require('express-validator/check').validationResult;
 
-
 // 导入MySQL模块
 var mysql = require('mysql2');
 var dbConfig = require('../db/DBConfig');
@@ -58,7 +57,8 @@ router.get('/addUser', [check('id')
   if (!errors.isEmpty()) {
     var errors = errors.mapped();
     return res.render('errorMessage.ejs', {
-      message: '注册信息错误提示:',
+      title: '注册失败！',
+      message: '原因:',
       error: errors
     });
   } else {
