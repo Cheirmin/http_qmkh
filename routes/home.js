@@ -17,9 +17,16 @@ app.use(session({
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.session.user) {
-    res.render('home', {
-      title: 'Home'
-    });
+    //角色权限判断，0为管理员，1为普通用户
+    if (req.session.user.role == 0) {
+      res.render('home', {
+        title: '管理员页面',
+      });
+    } else {
+      res.render('home', {
+        title: '我的主页',
+      });
+    }
   } else {
     res.redirect('../login');
   }

@@ -95,7 +95,7 @@ router.get('/addUser', [check('id')
 });
 
 //判断用户的登陆信息，如果成功则转到主页面
-router.get('/home', function(req, res, next) {
+router.get('/login', function(req, res, next) {
   // 从连接池获取连接
   pool.getConnection(function(err, connection) {
     // 获取前台页面传过来的参数
@@ -107,7 +107,8 @@ router.get('/home', function(req, res, next) {
           if (bcrypt.compareSync(param.password, result[0].password)) {
             req.session.user = {
               user_id: param.id,
-              role: 'admin'
+              //role_id 0为管理员，1为普通用户
+              role: result[0].role_id
             };
             return res.redirect('../home');
           } else {
@@ -123,5 +124,10 @@ router.get('/home', function(req, res, next) {
       });
   });
 });
+
+router.get('/logout', function(req, res, next) {
+  req.session.user = false;
+  res.redirect('../login');
+})
 
 module.exports = router;
