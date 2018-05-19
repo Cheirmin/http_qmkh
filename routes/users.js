@@ -94,6 +94,26 @@ router.get('/addUser', [check('id')
   }
 });
 
+//删除用户路由
+router.get('/deleteUser', function(req, res, next) {
+  pool.getConnection(function(err, connection) {
+    // 获取前台页面传过来的参数
+    var param = req.query || req.params;
+    var id = param.id;
+    console.log("id:" + param.id);
+    // 建立连接，使用学号登陆
+    connection.query(userSQL.deleteUserById, [param.id],
+      function(err, rows) {
+        if (err) {
+          console.log("deleted fail");
+        } else {
+          res.redirect('../home');
+        }
+        connection.release();
+      });
+  });
+});
+
 //判断用户的登陆信息，如果成功则转到主页面
 router.get('/login', function(req, res, next) {
   // 从连接池获取连接
@@ -124,10 +144,10 @@ router.get('/login', function(req, res, next) {
       });
   });
 });
-
+//登出路由
 router.get('/logout', function(req, res, next) {
   req.session.user = false;
   res.redirect('../login');
-})
+});
 
 module.exports = router;

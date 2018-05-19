@@ -6,6 +6,33 @@
   </head>
   <body>
     <h1><%= title %></h1>
+    <a href="">用户信息管理</a>
+    <a href="#">图书信息管理</a>
+    <table>
+      <tr>
+        <th>操作管理&nbsp&nbsp&nbsp</th>
+        <th>学号&nbsp&nbsp&nbsp</th>
+        <th>姓名&nbsp&nbsp&nbsp</th>
+        <th>邮箱&nbsp&nbsp&nbsp</th>
+        <th>借出的书(编号)&nbsp&nbsp&nbsp</th>
+      </tr>
+        <% for(var i in usersinfos) {if(usersinfos[i].deleted_at == null ) %>
+          <tr>
+            <th>
+              <a href='#' id="usersinfos[i].user_id">修改</a>
+              <!-- <button type="submit" name="id" value="14164801069"
+              onclick="javascrtpt:window.location.href='users/deleteUser'">删除</button> -->
+              <form  action="users/deleteUser" method="get">
+                <button type="submit" value="<%= usersinfos[i].user_id %>" name="id"
+                onclick="if (confirm('确定要删除吗？') == false) return false;"/>删除</form>
+            </th>
+            <th><%= usersinfos[i].user_id %> &nbsp&nbsp&nbsp</th>
+            <th><%= usersinfos[i].user_name %> &nbsp&nbsp&nbsp</th>
+            <th><%= usersinfos[i].email %> &nbsp&nbsp&nbsp</th>
+            <th><%= usersinfos[i].mylend %> &nbsp&nbsp&nbsp</th>
+          </tr>
+        <% } %>
+    </table>
     <a href="/users/logout">登出</a>
   </body>
 </html>
