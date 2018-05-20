@@ -3,6 +3,7 @@ var UserSQL = {
   queryAll: 'SELECT * FROM t_users_info',
   getUserById: 'SELECT * FROM t_users_info WHERE user_id = ? ',
   deleteUserById: 'DELETE FROM t_users_info WHERE user_id = ? ',
+  updateUserById: 'UPDATE t_users_info SET  user_id =?,user_name=? ,email=? ,role_id=? WHERE user_id =?'
 };
 
 module.exports = UserSQL;
