@@ -59,7 +59,7 @@ router.get('/addUser', [check('id')
     //获取错误的具体信息
     var errors = errors.mapped();
     //将错误信息返回给前端页面
-    res.render('errorMessages.ejs', {
+    return res.render('errorMessages.ejs', {
       title: '注册失败！',
       message: '原因:',
       error: errors
@@ -94,20 +94,55 @@ router.get('/addUser', [check('id')
   }
 });
 
+//修改用户路由
+router.get('/updateUser', function(req, res, next) {
+  // // 从连接池获取连接
+  // pool.getConnection(function(err, connection) {
+  //   // 获取前台页面传过来的参数
+  //   var param = req.query || req.params;
+  //   // 建立连接，使用学号登陆
+  //   connection.query(userSQL.getUserById, [param.id],
+  //     function(err, result, fields) {
+  //       if (result.length == 1) {
+  //         if (bcrypt.compareSync(param.password, result[0].password)) {
+  //           req.session.user = {
+  //             user_id: param.id,
+  //             //role_id 0为管理员，1为普通用户
+  //             role: result[0].role_id
+  //           };
+  //           return res.redirect('../home');
+  //         } else {
+  //           req.session.user = false;
+  //           return res.redirect('../login');
+  //         }
+  //       } else {
+  //         req.session.user = false;
+  //         return res.redirect('../login');
+  //       }
+  //       // 释放连接
+  //       connection.release();
+  //     });
+  // });
+  // return res.render('message.ejs', {
+  //   title: '修改成功！',
+  //   message: null,
+  //   detail: null
+  // });
+});
+
 //删除用户路由
 router.get('/deleteUser', function(req, res, next) {
   pool.getConnection(function(err, connection) {
     // 获取前台页面传过来的参数
     var param = req.query || req.params;
     var id = param.id;
-    console.log("id:" + param.id);
     // 建立连接，使用学号登陆
     connection.query(userSQL.deleteUserById, [param.id],
       function(err, rows) {
         if (err) {
-          console.log("deleted fail");
+          return console.log("deleted fail");
         } else {
-          res.redirect('../home');
+          return res.redirect('../home');
         }
         connection.release();
       });
@@ -144,10 +179,10 @@ router.get('/login', function(req, res, next) {
       });
   });
 });
-//登出路由
+//登出
 router.get('/logout', function(req, res, next) {
   req.session.user = false;
-  res.redirect('../login');
+  return res.redirect('../login');
 });
 
 module.exports = router;
