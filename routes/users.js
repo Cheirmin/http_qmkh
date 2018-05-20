@@ -140,7 +140,11 @@ router.get('/deleteUser', function(req, res, next) {
     connection.query(userSQL.deleteUserById, [param.id],
       function(err, rows) {
         if (err) {
-          return console.log("deleted fail");
+          return res.render('message.ejs', {
+            title: '删除失败！',
+            message: null,
+            detail: null
+          });
         } else {
           return res.redirect('../home');
         }
