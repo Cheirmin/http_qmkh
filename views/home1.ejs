@@ -29,8 +29,8 @@
         <% }else{ %>
           <th>可借&nbsp&nbsp&nbsp</th>
           <th>
-          <form  action="#" method="get">
-            <button type="submit" value="<%= booksinfo[i].book_id %>" name="id">借阅</form>
+          <form  action="/books/lendBook" method="get">
+            <button type="submit" value="<%= booksinfo[i].book_id %>" name="book_id">借阅</form>
           </th>
         <% } %>
       </tr>
