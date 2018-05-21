@@ -246,7 +246,7 @@ router.get('/login', function(req, res, next) {
         if (result.length == 1) {
           if (bcrypt.compareSync(param.password, result[0].password)) {
             req.session.user = {
-              user_id: param.id,
+              user_id: result[0].user_id,
               //role_id 0为管理员，1为普通用户
               role: result[0].role_id,
               name: result[0].user_name,
