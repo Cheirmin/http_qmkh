@@ -25,6 +25,7 @@ router.get('/', function(req, res, next) {
           function(err, result, fields) {
             res.render('adminHome', {
               title: '管理员页面',
+              email: req.session.user.email,
               username: req.session.user.name,
               usersinfos: result
             });

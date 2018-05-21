@@ -104,7 +104,8 @@ router.get('/getAllBookInfo', function(req, res, next) {
             res.render('adminHome1', {
               title: '管理员页面',
               username: req.session.user.name,
-              booksinfo: result
+              booksinfo: result,
+              email: req.session.user.email
             });
           }
           connection.release();
