@@ -8,7 +8,7 @@
   <body>
     <h1><%= title %></h1>
     <a href="">用户信息管理</a>
-    <a href="#">图书信息管理</a>
+    <a href="/books/getAllBookInfo">图书信息管理</a>
     <table>
       <tr>
         <th><th><th>操作管理&nbsp&nbsp&nbsp</th></th></th>
@@ -19,32 +19,39 @@
         <th>借出的书(编号)&nbsp&nbsp&nbsp</th>
       </tr>
         <% for(var i in usersinfos) {if(usersinfos[i].deleted_at == null ) %>
-          <tr>
-            <th>
-              <th>
-              <form  action="/users/getUserInfo" method="get">
-                <button type="submit" value="<%= usersinfos[i].user_id %>" name="id">修改</form>
-              </th>
-              <th>
-              <form  action="users/deleteUser" method="get">
-                <button type="submit" value="<%= usersinfos[i].user_id %>" name="id"
-                onclick="if (confirm('确定要删除吗？') == false) return false;"/>删除</form>
-              </th>
-            </th>
-            <th><%= usersinfos[i].user_id %> &nbsp&nbsp&nbsp</th>
-            <th><%= usersinfos[i].user_name %> &nbsp&nbsp&nbsp</th>
-            <th><%= usersinfos[i].email %> &nbsp&nbsp&nbsp</th>
-            <% if(usersinfos[i].role_id == 0 ){%>
-              <th>管理员&nbsp&nbsp&nbsp</th>
-            <%}else{%>
-              <th>普通用户&nbsp&nbsp&nbsp</th>
-            <% } %>
-            <% if(usersinfos[i].my_lend == null ){%>
-              <th>该用户暂时还没借书哦&nbsp&nbsp&nbsp</th>
-            <%}else{%>
-              <th><%= usersinfos[i].my_lend %> &nbsp&nbsp&nbsp</th>
-            <% } %>
-          </tr>
+      <tr>
+        <% if(usersinfos[i].role_id == 1 ){%>
+        <th>
+          <th>
+            <form  action="/users/getUserInfo" method="get">
+              <button type="submit" value="<%= usersinfos[i].user_id %>" name="id">修改</form>
+          </th>
+          <th>
+          <form  action="users/deleteUser" method="get">
+            <button type="submit" value="<%= usersinfos[i].user_id %>" name="id"
+            onclick="if (confirm('确定要删除吗？') == false) return false;"/>删除</form>
+          </th>
+        </th>
+        <%}else{%>
+          <th>
+            <th>无权限&nbsp</th>
+            <th>无权限&nbsp</th>
+          </th>
+        <% } %>
+        <th><%= usersinfos[i].user_id %> &nbsp&nbsp&nbsp</th>
+        <th><%= usersinfos[i].user_name %> &nbsp&nbsp&nbsp</th>
+        <th><%= usersinfos[i].email %> &nbsp&nbsp&nbsp</th>
+        <% if(usersinfos[i].role_id == 0 ){%>
+          <th>管理员&nbsp&nbsp&nbsp</th>
+        <%}else{%>
+          <th>普通用户&nbsp&nbsp&nbsp</th>
+        <% } %>
+        <% if(usersinfos[i].my_lend == null ){%>
+          <th>该用户暂时还没借书哦&nbsp&nbsp&nbsp</th>
+        <%}else{%>
+          <th><%= usersinfos[i].my_lend %> &nbsp&nbsp&nbsp</th>
+        <% } %>
+      </tr>
         <% } %>
     </table>
       <h2>当前用户名: <%= username %>&nbsp&nbsp&nbsp<a href="/users/logout">登出</a></h2>

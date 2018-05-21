@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-05-19 15:50:53
+-- Generation Time: 2018-05-21 19:07:06
 -- 服务器版本： 5.6.38-log
 -- PHP Version: 7.1.9
 
@@ -34,7 +34,7 @@ CREATE TABLE `t_books_info` (
   `book_name` varchar(50) NOT NULL,
   `book_summary` text NOT NULL,
   `kind_id` int(11) NOT NULL,
-  `lend_id` int(11) DEFAULT NULL,
+  `lend_id` bigint(11) DEFAULT NULL,
   `lend_time` timestamp NULL DEFAULT NULL,
   `creator` varchar(20) DEFAULT NULL,
   `updater` varchar(20) DEFAULT NULL,
@@ -50,7 +50,8 @@ CREATE TABLE `t_books_info` (
 
 INSERT INTO `t_books_info` (`id`, `book_id`, `book_name`, `book_summary`, `kind_id`, `lend_id`, `lend_time`, `creator`, `updater`, `deleter`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1000010000, '《倾城之恋》', '传奇里的倾国倾城的人大抵如此。\r\n\r\n到处都是传奇，可不见得有这么圆满的收场。胡琴咿咿哑哑拉着，在万盏灯的夜晚，拉过来又拉过去，说不尽的苍凉的故事——不问也罢！\r\n\r\n《倾城之恋》是张爱玲的成名作与代表作。白流苏和范柳原这一对现实庸俗的男女，在战争的兵荒马乱之中被命运掷骰子般地掷到了一起，于“一刹那”体会到了“一对平凡的夫妻”之间的“一点真心”。\r\n\r\n张爱玲是作为中国现代文学史上的一位杰出作家，而不是作为一个怪人、异人而存在的。也许她将不仅仅属于现代文学史。遥想几十年、几百年后，她会像她欣赏的李清照一样，在整个中国文学史上占据一个稳定的位置也说不定，而我们知道，那时候今天为我们所熟知的许多现代作家肯定都将被忽略不计了。\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n第一章 ：他的情妇\r\n\r\n \r\n    从法国到北京八千多公里，从北京首都机场到*四十五分钟，一百二十元。\r\n\r\n    那一个人从云端到泥泞，需要多少的时间？\r\n\r\n    我恨不得一天有一百个小时可以麻醉我自已，让我认不出我的名字，认不出我的姓。\r\n\r\n    可是驾驶证却还是触目可及，一张平静而又不会笑的脸，一个好听的名字，陌千寻。\r\n\r\n    这个城市熟悉得让我心痛，但是我却还不舍得离开这个城市。\r\n\r\n    空车上了山道，扑面而来的清绿色还是让我沉默着，警卫员示意我停车，指着未经允许不得闯入的牌子让我看。\r\n\r\n    我捏着手机下车：“我去乔府。”取了身份证给他们看，一个警卫员走过来看了眼，笑道：“哦，是陌小姐，今儿个早上大宅那边打电话过来说陌小姐会来，放行吧。怎么不懂事儿呢，陌小姐的身份证你们也查。”\r\n\r\n    “不登记了吗？”\r\n\r\n    “登什么记，陌小姐可是乔少爷的未婚妻。陌小姐快进去吧，夫人早些时候已经回来了。”\r\n\r\n    开着我的破夏利，在别人异样的眼光开了进去，乔府门前已经摆满了各种昂贵的名车，我的夏利出租车停挤在哪儿，就像是个小丑。\r\n\r\n    就如我的人生，也是一个小丑。\r\n\r\n    那早守在花园口的朴奶妈寡着一张脸说：“陌小姐，你跟我从后门走吧，前面宾客多，夫人说别丢了乔府的面子。”\r\n\r\n    我笑笑地跟随而去，一直上了楼梯她站在扶手边说：“陌小姐，夫人应该在少爷房里。”\r\n\r\n    “是。”\r\n\r\n    上了阶梯往左一直走，是乔东城的房间。\r\n\r\n    门推了条缝，女人的声音娇滴滴地传了出来：“东城，我穿这个衣服好看吗？”\r\n\r\n    只需要微一侧目，就能看到漂亮精致的女子拿着一套宝蓝色的低胸裙对一个背对着我穿上衣的男人说话。\r\n\r\n    她身上只着了内衣裤，越发显得身段惹火。\r\n\r\n    我知道她是谁，著名的某主持人，经常在电视里看到端庄漂亮的她，而她却是我未婚夫的情妇。\r\n\r\n    大床被子凌乱，用脚趾头想也知道发生过什么事。\r\n\r\n    “东城，这可怎么办呢，人家全身现在都没有力气了，一会儿开场舞要是跳得不好可丢脸来着了。”声音娇酥得让我听了也骨头软软的。\r\n\r\n    我礼貌地合上房门，看到长廊边乔夫人似笑非笑的表情。\r\n\r\n    我颔首点头：“乔夫人。”\r\n\r\n    “今儿个是东城的生日，我倒也不知他叫了朋友来，……千寻。”她别有深意地叫我的名字。\r\n\r\n    我笑着说：“乔夫人，我今天也挺忙的，替我跟他说一声生日快乐。”\r\n\r\n    她拧着眉，不怎么高兴地看着地毯，雪白的地毯让我踩出一些黑痕，我低下头将鞋子脱了提在手上：“乔夫人，我先去忙了，再见。”\r\n\r\n    她客气地说：“你慢走，明儿个我再打电话给你。”\r\n\r\n    “奶妈，奶妈。”背后她声音冷淡：“把地毯换了吧，都踩脏了别让客人看了失礼。”', 2, NULL, NULL, NULL, NULL, NULL, '2018-05-09 11:52:40', '2018-05-09 11:52:40', NULL),
-(2, 1000010001, '不知道', '没有描述', 1, NULL, NULL, NULL, NULL, NULL, '2018-05-09 12:27:28', '2018-05-09 12:27:28', NULL);
+(3, 1000010001, '《政治学通识》', '本书是作者在复旦大学政治学课程讲义的基础上修改润色而成的。本书力求成为一部通俗易懂、深入浅出的政治学普及入门读物。这部书正是为那些对政治和公共事务感兴趣的读者朋友们而写的。通过本书，作者希望能够帮助读者加深对中国政治与世界政治的认知，帮助读者理解政治学领域的重大议题、主要理论与基本方法，帮助读者养成健全与系统的政治思考能力。', 1, 14164801069, '2018-05-21 06:18:44', NULL, NULL, NULL, '2018-05-09 11:52:40', '2018-05-09 11:52:40', NULL),
+(4, 1000010002, '《中国古典文学名著儿童读本》', '　　1 天罡地煞下凡聚义\r\n　　2 九纹龙大闹史家村\r\n　　3 鲁提辖拳打镇关西\r\n　　4 花和尚大闹桃花村\r\n　　5 鲁智深大闹野猪林\r\n　　6 林冲雪夜上梁山\r\n　　7 汴京城杨志卖刀\r\n　　8 智多星智取生辰纲\r\n　　9 青面兽双夺宝珠寺\r\n　　10 宋公明私放晁保正\r\n　　11 石碣村三阮斗官军\r\n　　12 赤发鬼生擒黄团练\r\n　　13 景阳冈武松打虎\r\n　　14 狮子桥斗杀西门庆\r\n　　15 武松醉打蒋门神\r\n　　……', 11, NULL, NULL, NULL, NULL, NULL, '2018-05-09 11:52:40', '2018-05-09 11:52:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,10 +142,10 @@ CREATE TABLE `t_users_info` (
 --
 
 INSERT INTO `t_users_info` (`id`, `user_id`, `user_name`, `password`, `role_id`, `email`, `my_lend`, `creator`, `updater`, `deleter`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1060, 14164801067, 'Cheirmin', '$2a$10$mVf6gsrTor/vj7RihTynMejPTT0ZJSSAJec1G9xoKIlmdV9iX0Pkm', 0, '1147905069@qq.com', NULL, NULL, NULL, NULL, '2018-05-16 12:05:58', '2018-05-16 12:05:58', NULL),
-(1061, 14164801068, '晓明哥', '$2a$10$nOf/DPuNZejBxPwoS0mYru6H7WWWdhWx5fuJap1ZVgW9Bh4RGzGPy', 1, '1147905069@qq.com', NULL, NULL, NULL, NULL, '2018-05-16 12:06:37', '2018-05-16 12:06:37', NULL),
-(1076, 14164801069, 'test', '$2a$10$vgwmTyT1SJfoX0/eq/krauQ8qZvyvNo1f/c1A/aNHH6z.q3VI8nIO', 1, '123456@qq.com', NULL, NULL, NULL, NULL, '2018-05-18 15:13:51', '2018-05-18 15:13:51', NULL),
-(1077, 14164801070, '骚的一匹', '$2a$10$JPeJfmz0ni9SJcbno9p35OmyBg7Umzu2qXwYM0vynViTTiaqKyuQG', 1, '456@qq.com', NULL, NULL, NULL, NULL, '2018-05-18 15:28:54', '2018-05-18 15:28:54', NULL);
+(1080, 14164801067, 'Cheirmin0', '$2a$10$fM8YqL3RqMWSIT5Gww2uYOB3hWQbI28Nklz8MQRhvbZza9ohosNba', 0, '1147905069@qq.com', NULL, NULL, NULL, NULL, '2018-05-19 11:22:11', '2018-05-19 11:22:11', NULL),
+(1082, 14164801068, 'Cheirmin1', '$2a$10$YSIsQFbHRt2LhgEt5tEW5uRBuE/cRecwLBgNd11bBiFyXigJ4SNyK', 1, '1147905069@qq.com', NULL, NULL, NULL, NULL, '2018-05-19 11:23:11', '2018-05-19 11:23:11', NULL),
+(1083, 14164801069, 'Cheirmin2', '$2a$10$bZhtRqVUOuGsU4uyIn3KQOSLec7qkd0PSO6guqf8UYkLUm/rYG2.O', 1, '1147905069@qq.com', '1000010001', NULL, NULL, NULL, '2018-05-19 11:26:26', '2018-05-19 11:26:26', NULL),
+(1085, 14164801070, 'Cheirmin3', '$2a$10$jjLfH6zmgYLXW9p/AKztu.S1Hddnv8xgFf1Z5sRVEoNdgOcSuGuZW', 1, '1234567@qq.com', NULL, NULL, NULL, NULL, '2018-05-19 11:29:43', '2018-05-19 11:29:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -217,7 +218,7 @@ ALTER TABLE `users`
 -- 使用表AUTO_INCREMENT `t_books_info`
 --
 ALTER TABLE `t_books_info`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- 使用表AUTO_INCREMENT `t_book_kind_info`
 --
@@ -232,7 +233,7 @@ ALTER TABLE `t_role_info`
 -- 使用表AUTO_INCREMENT `t_users_info`
 --
 ALTER TABLE `t_users_info`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1078;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1086;
 --
 -- 使用表AUTO_INCREMENT `users`
 --

@@ -12,16 +12,6 @@ var bookSQL = require('../db/BookSql');
 // 使用DBConfig.js的配置信息创建一个MySQL连接池
 var pool = mysql.createPool(dbConfig.mysql);
 
-app.use(formidable());
-app.use(session({
-  secret: 'password',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAage: 600000
-  }
-}))
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.session.user) {
