@@ -34,7 +34,7 @@
         <% if(booksinfo[i].lend_time!=null){ %>
           <th>借出日期:<%= booksinfo[i].lend_time %> &nbsp&nbsp&nbsp</th>
           <th>
-          <form  action="#" method="get">
+          <form  action="#" method="get" style="padding-left: 18px;padding-top: 10px;">
             <button type="submit" value="<%= booksinfo[i].book_id %>" name="id">预约</form>
           </th>
         <% }else{ %>
