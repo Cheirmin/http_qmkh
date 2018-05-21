@@ -22,7 +22,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAage: 600000
+    setMaxAage: 600000
   }
 }))
 
