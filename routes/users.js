@@ -250,7 +250,8 @@ router.get('/login', function(req, res, next) {
               //role_id 0为管理员，1为普通用户
               role: result[0].role_id,
               name: result[0].user_name,
-              mylend: result[0].my_lend
+              mylend: result[0].my_lend,
+              email: result[0].email
             };
             return res.redirect('../home');
           } else {

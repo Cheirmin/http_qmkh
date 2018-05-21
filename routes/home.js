@@ -53,6 +53,7 @@ router.get('/', function(req, res, next) {
               console.log("result.length != 1");
               res.render('home', {
                 title: '我的主页',
+                email: req.session.user.email,
                 username: req.session.user.name,
                 mylendinfos1: '你当前还没有借阅任何书籍',
                 mylendinfos2: null,
@@ -62,6 +63,7 @@ router.get('/', function(req, res, next) {
               res.render('home', {
                 title: '我的主页',
                 username: req.session.user.name,
+                email: req.session.user.email,
                 mylendinfos1: result[0].book_name,
                 mylendinfos2: result[0].book_id,
                 mylendinfos3: result[0].lend_time,
