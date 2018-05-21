@@ -87,22 +87,30 @@ router.get('/getBookInfo', function(req, res, next) {
 router.get('/getAllBookInfo', function(req, res, next) {
   if (req.session.user) {
     //角色权限判断，0为管理员，1为普通用户
-    if (req.session.user.role == 1) {
-      pool.getConnection(function(err, connection) {
-        // 获取前台页面传过来的参数
-        // var param = req.query || req.params;
-        // 建立连接，使用学号登陆
-        connection.query(bookSQL.queryAll,
-          function(err, result, fields) {
+    pool.getConnection(function(err, connection) {
+      // 获取前台页面传过来的参数
+      // var param = req.query || req.params;
+      // 建立连接，使用学号登陆
+      connection.query(bookSQL.queryAll,
+        function(err, result, fields) {
+          if (req.session.user.role == 1) {
             res.render('home1', {
               title: '我的主页',
               username: req.session.user.name,
               booksinfo: result
             });
-            connection.release();
-          });
-      });
-    }
+          } else {
+            res.render('adminHome1', {
+              title: '管理员页面',
+              username: req.session.user.name,
+              booksinfo: result
+            });
+          }
+          connection.release();
+        });
+    });
+  } else {
+    res.redirect('../login');
   }
 });
 
@@ -266,5 +274,6 @@ router.get('/backBook1', function(req, res, next) {
     res.redirect('../login');
   }
 });
+
 
 module.exports = router;

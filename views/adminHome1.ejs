@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- 管理员用户页面 -->
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <a href="/home">用户信息管理</a>
+    <a href="">图书信息管理</a>
+    <table>
+      <tr>
+        <th><th><th>操作管理&nbsp&nbsp&nbsp</th></th></th>
+        <th>书名&nbsp&nbsp&nbsp</th>
+        <th>编号&nbsp&nbsp&nbsp</th>
+        <th>借阅者&nbsp&nbsp&nbsp</th>
+        <th>借阅时间（为空时表示未借出）&nbsp&nbsp&nbsp</th>
+        <th>&nbsp&nbsp&nbsp</th>
+      </tr>
+      <% for(var i in booksinfo) {if(booksinfo[i].deleted_at == null ) %>
+          <tr>
+            <th>
+              <th>
+              <form  action="#" method="get">
+                <button type="submit" value="<%= booksinfo[i].book_id %>" >修改</form>
+              </th>
+              <th>
+              <form  action="#" method="get">
+                <button type="submit" value="<%= booksinfo[i].book_id %>"
+                onclick="if (confirm('确定要删除吗？') == false) return false;"/>删除</form>
+              </th>
+            </th>
+            <th><%= booksinfo[i].book_name %> &nbsp&nbsp&nbsp</th>
+            <th><%= booksinfo[i].book_id %> &nbsp&nbsp&nbsp</th>
+            <th><%= booksinfo[i].lend_id %> &nbsp&nbsp&nbsp</th>
+            <th><%= booksinfo[i].lend_time %> &nbsp&nbsp&nbsp</th>
+          </tr>
+        <% } %>
+    </table>
+      <h2><a href="#">新增图书</a></h2>
+      <h2>当前用户名: <%= username %>&nbsp&nbsp&nbsp<a href="/users/logout">登出</a></h2>
+  </body>
+</html>
