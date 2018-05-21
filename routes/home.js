@@ -55,7 +55,7 @@ router.get('/', function(req, res, next) {
                 title: '我的主页',
                 email: req.session.user.email,
                 username: req.session.user.name,
-                mylendinfos1: '你当前还没有借阅任何书籍',
+                mylendinfos1: '你当前还没有借阅任何书籍！',
                 mylendinfos2: null,
                 mylendinfos3: null,
               });

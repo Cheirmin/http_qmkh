@@ -54,6 +54,56 @@ h5{
     display: block;
     font-family: "lucida Grande",Verdana,"Microsoft YaHei";
 }
+.content-view{
+  width: 960px;
+  height: 600px;
+  visibility: visible;
+    border:3px solid #d6dfea;
+    background:#eff4fa;
+    position: relative;
+    z-index: 12;
+    padding: 0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.a1{
+      font: inherit;
+      display: inline-block;
+      text-decoration: none;
+      padding-right: 50px;
+      color: #000;
+      font-weight: bold;
+}
+.content-view-table{
+    margin-left: 190px;
+    border:2px solid #c0d0e3;
+    width: 598.4px;
+    margin-left: 180px;
+
+}
+.tr-1{
+  border:3px solid #d6dfea;
+  background:#eff4fa;
+}
+.th-1{
+    width: 220px;
+}
+.th-2{
+    width: 150px;
+}
+.th-3{
+    width: 100px;
+    padding-left: 50px;
+}
+.th-4{
+    width: 60px;
+    padding-left: 50px;
+}
+.th-5{
+  padding-top: 15px;
+  padding-left: 36px;
+}
 .top-buttons-right a{
   font-size: 16px;
   letter-spacing: 1px;

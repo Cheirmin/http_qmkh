@@ -3,18 +3,29 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel='stylesheet' href='/stylesheets/style4.css'  type="text/css" />
   </head>
   <body>
-    <h1><%= title %></h1>
+    <div class="top-buttons-agileinfo">
+    <div class="top-buttons-left">
+    <h2><%= title %></h2>
+     </div>
+     <div class="top-buttons-right">
+         <div class="switch">当前用户：<%= username %>&nbsp&nbsp</br><<%= email %>></div>
+        <h5><a href="/users/logout">登出</a></h5>
+     </div>
+
+   </div>
+   <div class="content">
+   <div class="content-view">
     <a href="/home">我的借阅</a>
-    <a href="">图书馆藏</a>
-    <table>
-      <tr>
-        <th>书名&nbsp&nbsp&nbsp</th>
-        <th>书本编号&nbsp&nbsp&nbsp</th>
-        <th>借阅状态&nbsp&nbsp&nbsp</th>
-        <th>操作&nbsp&nbsp&nbsp</th>
+    <a  class="a1" href="">图书馆藏</a>
+    <table class="content-view-table">
+      <tr  class="tr-1">
+        <th class="th-1">书名&nbsp&nbsp&nbsp</th>
+        <th class="th-2">书本编号&nbsp&nbsp&nbsp</th>
+        <th class="th-3">借阅状态&nbsp&nbsp&nbsp</th>
+        <th class="th-4">操作&nbsp&nbsp&nbsp</th>
       </tr>
       <% for(var i in booksinfo){ %>
       <tr>
@@ -28,7 +39,7 @@
           </th>
         <% }else{ %>
           <th>可借&nbsp&nbsp&nbsp</th>
-          <th>
+          <th class="th-5">
           <form  action="/books/lendBook" method="get">
             <button type="submit" value="<%= booksinfo[i].book_id %>" name="book_id">借阅</form>
           </th>
@@ -36,6 +47,7 @@
       </tr>
       <% } %>
     </table>
-      <h2>当前用户名: <%= username %>&nbsp&nbsp&nbsp<a href="/users/logout">登出</a></h2>
+   </div>
+ </div>
   </body>
 </html>

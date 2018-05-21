@@ -17,27 +17,32 @@
 
  </div>
     <div class="content">
-    <a href="">我的借阅</a>
+    <div class="content-view">
+    <a class="a1" href="">我的借阅</a>
     <a href="/books/getAllBookInfo">图书馆藏</a>
-    <table>
-      <tr>
-        <th>书名&nbsp&nbsp&nbsp</th>
-        <th>书本编号&nbsp&nbsp&nbsp</th>
-        <th>借阅如期&nbsp&nbsp&nbsp</th>
-        <th>操作&nbsp&nbsp&nbsp</th>
+    <table class="content-view-table">
+      <tr class="tr-1">
+        <th class="th-1">书名&nbsp&nbsp&nbsp</th>
+        <th class="th-2">书本编号&nbsp&nbsp&nbsp</th>
+        <th class="th-3">借阅如期&nbsp&nbsp&nbsp</th>
+        <th class="th-4">操作&nbsp&nbsp&nbsp</th>
       </tr>
       <tr>
         <th><%= mylendinfos1 %> &nbsp&nbsp&nbsp</th>
         <th><%= mylendinfos2 %> &nbsp&nbsp&nbsp</th>
         <th><%= mylendinfos3 %> &nbsp&nbsp&nbsp</th>
         <% if(mylendinfos2!=null){ %>
-        <th>
+        <th class="th-5">
         <form  action="/books/backBook" method="get">
-          <button type="submit" value="<%= mylendinfos2 %>" name="book_id">归还</form>
+          <button type="submit" value="<%= mylendinfos2 %>" name="book_id">归还</button>
+          </form>
         </th>
+        <% }else {%>
+        <th><%= null %></th>
         <% } %>
       </tr>
     </table>
   </div>
+</div>
   </body>
 </html>

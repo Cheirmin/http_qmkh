@@ -97,7 +97,8 @@ router.get('/getAllBookInfo', function(req, res, next) {
             res.render('home1', {
               title: '我的主页',
               username: req.session.user.name,
-              booksinfo: result
+              booksinfo: result,
+              email: req.session.user.email
             });
             connection.release();
           });
